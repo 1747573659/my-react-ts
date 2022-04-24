@@ -1,52 +1,49 @@
-import { Form, Input, Button, Checkbox } from 'antd';
-import style from './index.less'
+import { Form, Input, Button } from 'antd'
+import style from './index.module.less'
+import axios from 'axios'
+import { useEffect } from 'react'
+
+
+type loginForm = {
+  username: String
+  password: String
+}
+
+const handleLogin = ({username: loginName, password}: loginForm) => {
+  axios.post(`/api/login?loginName=${loginName}&password=${password}`).then(res => {
+    console.log(res);
+  })
+}
 
 const LoginForm = () => {
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-  };
+
+  const onFinish = (loginForm: loginForm) => {
+    handleLogin(loginForm)
+  }
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
-  };
+    console.log('Failed:', errorInfo)
+  }
 
   return (
-    <Form
-      name="basic"
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      autoComplete="off"
-    >
-      <Form.Item
-        label="Username"
-        name="username"
-        rules={[{ required: true, message: 'Please input your username!' }]}
-      >
-        <Input />
-      </Form.Item>
+    <div className={style['login-box']}>
+      <Form className={style['login-form']} name='basic' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete='off'>
+        <Form.Item label='用户名' name='username' rules={[{ required: true, message: '请输入用户名!' }]}>
+          <Input />
+        </Form.Item>
 
-      <Form.Item
-        label="Password"
-        name="password"
-        rules={[{ required: true, message: 'Please input your password!' }]}
-      >
-        <Input.Password />
-      </Form.Item>
+        <Form.Item label='密码' name='password' rules={[{ required: true, message: '请输入密码!' }]}>
+          <Input.Password />
+        </Form.Item>
 
-      <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
+        <Form.Item labelCol={{ span: 12 }} wrapperCol={{ offset: 8, span: 12 }}>
+          <Button type='primary' htmlType='submit'>
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
+  )
+}
 
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
-  );
-};
-
-export default LoginForm;
+export default LoginForm
