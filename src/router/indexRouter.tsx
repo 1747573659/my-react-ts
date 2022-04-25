@@ -1,12 +1,17 @@
-import { HashRouter, Route } from 'react-router-dom'
-import Login from '../components/Login/Login'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Login from '../views/Login/Login'
+import Home from '../views/Home/Home'
 
+const getMyToken = () => {}
 
 const IndexRouter = () => {
   return (
-    <HashRouter>
-      <Route path="/login" element={Login} />
-    </HashRouter>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login/>} />
+        <Route path="/" element={<Home/>} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

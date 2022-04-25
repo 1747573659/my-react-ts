@@ -1,12 +1,12 @@
 import React from 'react';
-import Login from './components/Login/Login'
+import IndexRouter from './router/indexRouter'
 
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Login></Login>
+        <IndexRouter></IndexRouter>
       </header>
     </div>
   );
