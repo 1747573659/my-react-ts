@@ -1,7 +1,24 @@
 import React from 'react'
+import { Layout } from 'antd';
 
-export default function Layout() {
+import LeftMenu from '../LeftMenu/LeftMenu'
+
+const { Header, Sider, Content } = Layout;
+
+const HomeLayout =  () => {
   return (
-    <div>Layout</div>
+    <>
+      <Layout>
+        <Header>Header</Header>
+        <Layout>
+          <Sider>
+            <LeftMenu></LeftMenu>
+          </Sider>
+          <Content>Content</Content>
+        </Layout>
+      </Layout>
+    </>
   )
 }
+
+export default HomeLayout

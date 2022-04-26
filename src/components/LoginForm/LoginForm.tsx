@@ -1,8 +1,6 @@
 import { Form, Input, Button } from 'antd'
 import style from './index.module.less'
 import axios from 'axios'
-import { useEffect } from 'react'
-
 
 type loginForm = {
   username: String
@@ -12,6 +10,8 @@ type loginForm = {
 const handleLogin = ({username: loginName, password}: loginForm) => {
   axios.post(`/api/login?loginName=${loginName}&password=${password}`).then(res => {
     console.log(res);
+    localStorage.setItem('token', res.data.data.token)
+    // <Navigate to="/login" state={{ from: location }} replace />
   })
 }
 
@@ -38,7 +38,7 @@ const LoginForm = () => {
 
         <Form.Item labelCol={{ span: 12 }} wrapperCol={{ offset: 8, span: 12 }}>
           <Button type='primary' htmlType='submit'>
-            Submit
+            登录
           </Button>
         </Form.Item>
       </Form>
