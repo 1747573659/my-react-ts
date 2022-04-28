@@ -1,5 +1,4 @@
 import { Menu, MenuProps } from 'antd';
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -20,28 +19,20 @@ function getItem(
 }
 
 const items: MenuProps['items'] = [
-  getItem('Navigation One', 'sub1', <MailOutlined />, [
-    getItem('Item 1', 'g1', null, [getItem('Option 1', '1'), getItem('Option 2', '2')], 'group'),
-    getItem('Item 2', 'g2', null, [getItem('Option 3', '3'), getItem('Option 4', '4')], 'group'),
+  getItem('享钱支付', 'userPay', null, [
+    getItem('商户管理', 'shopManagement', null, [getItem('享钱商户管理', 'management'), getItem('享钱商户品牌', 'brandManagement')]),
+    getItem('进件管理', 'entryManager', null, [getItem('普通进件管理', 'ordinaryManager'), getItem('享付通进件管理', 'index')]),
   ]),
 
-  getItem('Navigation Two', 'sub2', <AppstoreOutlined />, [
-    getItem('Option 5', '5'),
-    getItem('Option 6', '6'),
-    getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
-  ]),
-
-  getItem('Navigation Three', 'sub4', <SettingOutlined />, [
-    getItem('Option 9', '9'),
-    getItem('Option 10', '10'),
-    getItem('Option 11', '11'),
-    getItem('Option 12', '12'),
-  ]),
+  getItem('运营管理', 'marketingIndex', null, [
+    getItem('微信营销活动', 'marketingManger', null, [getItem('商户交易查询', 'merchantTransaction'), getItem('门店交易查询', 'storeTransaction')]),
+    getItem('公共资讯管理', 'information', null, [getItem('培训资料管理', 'materials'), getItem('公共消息管理', 'materials')]),
+  ])
 ];
 
 const LeftMenu = () => {
   const onClick: MenuProps['onClick'] = e => {
-    console.log('click ', e);
+    console.log('click ', e.keyPath.toString().replace(/,/g, '/'));
   };
 
   return (
@@ -56,4 +47,4 @@ const LeftMenu = () => {
   );
 };
 
-export default () => <LeftMenu />;
+export default LeftMenu;

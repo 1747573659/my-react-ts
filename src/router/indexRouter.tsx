@@ -1,6 +1,6 @@
-import { Route, Routes } from 'react-router-dom'
-import Login from '../views/Login/Login'
-import Home from '../views/Home/Home'
+import { useRoutes } from 'react-router-dom'
+import routes from './routes'
+// import AuthProvider from './AuthProvider'
 
 const hasToken = () => {
   const token = localStorage.getItem('token')
@@ -8,14 +8,13 @@ const hasToken = () => {
 }
 
 const IndexRouter = () => {
+  const showRoutes = useRoutes(routes)
   return (
-    <Routes>
-      <Route path="/login" element={<Login/>} />
-      <Route path="/" element={
-        hasToken() ? <Home></Home> :
-        <Login></Login>
-      } />
-    </Routes>
+    // <AuthProvider>
+    <>
+      {showRoutes}
+    </>
+    // </AuthProvider>
   )
 }
 

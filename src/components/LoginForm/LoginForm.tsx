@@ -1,24 +1,27 @@
 import { Form, Input, Button } from 'antd'
 import style from './index.module.less'
 import axios from 'axios'
+import { useNavigate, NavigateFunction } from 'react-router-dom'
+import MD5Util from '../../utils/MD5Util'
 
 type loginForm = {
-  username: String
-  password: String
+  username: string
+  password: string
 }
 
-const handleLogin = ({username: loginName, password}: loginForm) => {
-  axios.post(`/api/login?loginName=${loginName}&password=${password}`).then(res => {
-    console.log(res);
+const handleLogin = ({username: loginName, password}: loginForm, navigate: NavigateFunction) => {
+  axios.post(`/api/login?loginName=${loginName}&password=${MD5Util.md5(password)}`).then(res => {
     localStorage.setItem('token', res.data.data.token)
+    navigate("/user")
     // <Navigate to="/login" state={{ from: location }} replace />
   })
 }
 
 const LoginForm = () => {
+  const navigate: NavigateFunction = useNavigate()
 
   const onFinish = (loginForm: loginForm) => {
-    handleLogin(loginForm)
+    handleLogin(loginForm, navigate)
   }
 
   const onFinishFailed = (errorInfo: any) => {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout } from 'antd';
-
-import LeftMenu from '../LeftMenu/LeftMenu'
+import LeftMenu from '../../components/LeftMenu/LeftMenu'
+import { Outlet } from 'react-router-dom'
 
 const { Header, Sider, Content } = Layout;
 
@@ -14,7 +14,9 @@ const HomeLayout =  () => {
           <Sider>
             <LeftMenu></LeftMenu>
           </Sider>
-          <Content>Content</Content>
+          <Content>
+            <Outlet />
+          </Content>
         </Layout>
       </Layout>
     </>
