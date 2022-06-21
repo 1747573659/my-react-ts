@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout } from 'antd';
 import LeftMenu from '../../components/LeftMenu/LeftMenu'
-import { Outlet } from 'react-router-dom'
+import { Outlet, Navigate } from 'react-router-dom'
 
 const { Header, Sider, Content } = Layout;
 
@@ -15,7 +15,10 @@ const HomeLayout =  () => {
             <LeftMenu></LeftMenu>
           </Sider>
           <Content>
-            <Outlet />
+            { localStorage.getItem('token') ? 
+              <Outlet /> :
+              <Navigate to="/login" />
+            }
           </Content>
         </Layout>
       </Layout>

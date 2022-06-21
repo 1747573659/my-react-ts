@@ -1,4 +1,5 @@
 import { Menu, MenuProps } from 'antd';
+import { useNavigate, NavigateFunction } from 'react-router-dom';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -9,7 +10,7 @@ function getItem(
   children?: MenuItem[],
   type?: 'group',
 ): MenuItem {
-  return {
+  return { 
     key,
     icon,
     children,
@@ -19,20 +20,22 @@ function getItem(
 }
 
 const items: MenuProps['items'] = [
-  getItem('享钱支付', 'userPay', null, [
-    getItem('商户管理', 'shopManagement', null, [getItem('享钱商户管理', 'management'), getItem('享钱商户品牌', 'brandManagement')]),
-    getItem('进件管理', 'entryManager', null, [getItem('普通进件管理', 'ordinaryManager'), getItem('享付通进件管理', 'index')]),
-  ]),
-
-  getItem('运营管理', 'marketingIndex', null, [
-    getItem('微信营销活动', 'marketingManger', null, [getItem('商户交易查询', 'merchantTransaction'), getItem('门店交易查询', 'storeTransaction')]),
-    getItem('公共资讯管理', 'information', null, [getItem('培训资料管理', 'materials'), getItem('公共消息管理', 'materials')]),
+  getItem('用户', 'user', null, [
+    getItem('用户列表', 'userList'),
+    getItem('角色列表', 'roleList')
   ])
 ];
 
 const LeftMenu = () => {
+  console.log('11')
+  const navigate: NavigateFunction = useNavigate()
   const onClick: MenuProps['onClick'] = e => {
-    console.log('click ', e.keyPath.toString().replace(/,/g, '/'));
+    console.log('click ', e.keyPath);
+    let url = ''
+    for (let item; item = e.keyPath.pop();) {
+      url += '/' + item
+    }
+    navigate(url)
   };
 
   return (

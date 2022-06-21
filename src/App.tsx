@@ -5,9 +5,7 @@ import IndexRouter from './router/indexRouter'
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <IndexRouter></IndexRouter>
-      </header>
+      <IndexRouter></IndexRouter>
     </div>
   );
 }
