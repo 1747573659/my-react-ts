@@ -1,36 +1,57 @@
 import { RouteObject, Navigate } from 'react-router-dom'
 import Layout from '../views/Layout/Layout'
 import Login from '../views/Login/Login'
-import Shop from '../views/Shop/Shop'
+import NewBlog from '../views/NewBlog/NewBlog'
 import Home from '../views/Home/Home'
 import UserList from '../views/User/UserList'
 import RoleList from '../views/User/RoleList'
-const asyncRoutes: RouteObject[] = [
+
+export interface MyRouteObject {
+  caseSensitive?: boolean;
+  children?: MyRouteObject[];
+  element?: React.ReactNode;
+  index?: boolean;
+  path?: string;
+  name?: string;
+}
+
+const asyncRoutes: MyRouteObject[] = [
   {
     path: '/',
     element: <Layout />,
     children: [
       {
-        path: '/home',
+        path: '/blog',
         index: true,
+        name: '博客',
         element: <Home />
       },
       {
-        path: '/user',
-        children: [
-          {
-            path: '/user/userList',
-            element: <UserList />
-          },
-          {
-            path: '/user/roleList',
-            element: <RoleList />
-          }
-        ]
+        path: '/newBlog',
+        name: '写博客',
+        element: <NewBlog />
       },
       {
-        path: '/shop',
-        element: <Shop />
+        path: '/setting',
+        name: '设置',
+        children: [
+          {
+            path: '/setting/user',
+            name: '用户',
+            children: [
+              {
+                path: '/setting/user/userList',
+                name: '用户列表',
+                element: <UserList />
+              },
+              {
+                path: '/setting/user/roleList',
+                name: '角色列表',
+                element: <RoleList />
+              }
+            ]
+          },
+        ]
       }
     ]
   }
@@ -43,7 +64,7 @@ const routes: RouteObject[] = [
   ...asyncRoutes,
   {
     path: '*',
-    element: <Navigate to="/home"/>
+    element: <Navigate to="/blog"/>
   }
 ]
 export default routes

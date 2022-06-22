@@ -1,5 +1,5 @@
 import { Menu, MenuProps } from 'antd';
-import { useNavigate, NavigateFunction } from 'react-router-dom';
+import { useNavigate, NavigateFunction, useLocation } from 'react-router-dom';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -26,12 +26,17 @@ const items: MenuProps['items'] = [
   ])
 ];
 
-const LeftMenu = () => {
+const LeftMenu = ({ leftMenuData }) => {
   console.log('11')
   const navigate: NavigateFunction = useNavigate()
+
+  const location = useLocation()
+
+  console.log(location)
+
   const onClick: MenuProps['onClick'] = e => {
     console.log('click ', e.keyPath);
-    let url = ''
+    let url = '/setting'
     for (let item; item = e.keyPath.pop();) {
       url += '/' + item
     }
@@ -41,7 +46,7 @@ const LeftMenu = () => {
   return (
     <Menu
       onClick={onClick}
-      style={{ width: 256 }}
+      style={{ width: 200 }}
       defaultSelectedKeys={['1']}
       defaultOpenKeys={['sub1']}
       mode="inline"
