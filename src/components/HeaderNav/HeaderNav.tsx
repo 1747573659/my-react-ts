@@ -24,13 +24,18 @@ type topMenuObejct = {
   name: string
 }
 
-export default function HeaderNav({ topMenuData }: {topMenuData: topMenuObejct[] | undefined}) {
+type HeaderNavProps = {
+  routesMap: topMenuObejct[] | undefined,
+  handleSetleftMenuData: (firstLevel: string) => void
+}
+
+export default function HeaderNav({ routesMap, handleSetleftMenuData }: HeaderNavProps) {
 
   const onClick: MenuProps['onClick'] = e => {
-    console.log('click ', e.keyPath);
+    handleSetleftMenuData(e.keyPath[0])
   };
 
-  const items: MenuProps['items'] = topMenuData?.map((item: topMenuObejct) => getItem(item.name, item.path))
+  const items: MenuProps['items'] = routesMap?.map((item: topMenuObejct) => getItem(item.name, item.path))
 
   return (
     <Layout.Header>

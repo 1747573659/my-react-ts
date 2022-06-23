@@ -15,7 +15,7 @@ export interface MyRouteObject {
   name?: string;
 }
 
-const asyncRoutes: MyRouteObject[] = [
+export const asyncRoutes: MyRouteObject[] = [
   {
     path: '/',
     element: <Layout />,
